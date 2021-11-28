@@ -1,11 +1,5 @@
 
-export const increment = () => {
-    return { type : 'INCREMENT' }
-}
-export const decrement = () => {
-    return { type : 'DECREMENT' }
-}
 
-export const editText = (text) => {
-    return { type : 'EDITTEXT' , text }
+export const addProducts = (product) => {
+    return { type : 'ADDPRODUCT' , payload : product }
 }
