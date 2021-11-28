@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { addProducts, updateProduct, setFormData } from '../../redux/actions';
 
-function From(props) {
+function From() {
+    const dispatch = useDispatch();
+    const formData = useSelector(state=>state.formData)
     const [ name , setName ] = useState("")
     const [ description , setDescription ] = useState("")
     const [ price , setPrice ] = useState("")
 
     useEffect(()=>{
-        setName(props.formData.name)
-        setDescription(props.formData.description)
-        setPrice(props.formData.price)
-    },[props.formData])
+        setName(formData.name)
+        setDescription(formData.description)
+        setPrice(formData.price)
+    },[formData])
 
 
     return (
@@ -33,23 +37,24 @@ function From(props) {
                 }} placeholder="Enter price" value={price} id="price"/>
             </div>
             <button type="submit" onClick={()=>{
-                if(props.formData.id){
+                if(formData.id){
                     let obj = {}
-                    obj.id = props.formData.id
+                    obj.id = formData.id
                     obj.name = name
                     obj.description = description
                     obj.price = price
-                    props.setProductToState("update",obj);
+                    dispatch(updateProduct(obj));
                     setName("")
                     setDescription("")
                     setPrice("")
+                    dispatch(setFormData({}))
                 }else{
                     let obj = {}
                     obj.id = Math.random()
                     obj.name = name
                     obj.description = description
                     obj.price = price
-                    props.setProductToState("add",obj);
+                    dispatch(addProducts(obj));
                     setName("")
                     setDescription("")
                     setPrice("")

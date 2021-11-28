@@ -1,17 +1,19 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import SingleProduct from './SingleProduct'
 
-function Products(props) {
+function Products() {
+    const products = useSelector(state=>state.products)
     return (
         <div className="container">
-            {props.products.length != 0 ?
+            {products.length != 0 ?
                 <div className="row">
-                    {props.products.map((product)=>{
+                    {products.map((product)=>{
                         return <SingleProduct 
                                     product = {product} 
                                     key={Math.random()} 
-                                    deleteProduct = {props.deleteProduct}
-                                    updateProduct = {props.updateProduct}/>
+                                    deleteProduct = {""}
+                                    updateProduct = {""}/>
                     })}
                 </div>
                 :
